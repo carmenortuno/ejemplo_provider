@@ -63,7 +63,7 @@ class _LoginForm extends StatelessWidget {
                   labelText: 'Correo electrónico',
                   prefixIcon: Icons.alternate_email_rounded
               ),
-              //onChanged: ( value ) => loginForm.email = value,
+           
               onChanged: (value) =>{},
               validator: ( value ) {
 
