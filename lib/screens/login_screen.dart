@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:provider/provider.dart';
 import 'package:ejemplo_provider/ui/input_decorations.dart';
-import 'package:ejemplo_provider/ui/textstyle_texto.dart';
 import 'package:ejemplo_provider/widget/login_background.dart';
 import 'package:ejemplo_provider/widget/card_container.dart';
 
@@ -21,9 +20,8 @@ class LoginScreen extends StatelessWidget {
                       child: Column(
                         children: [
                           SizedBox( height: 10 ),
-                          Text('Login',style:TextStyleTexto.textoTitPrincipal()),
+                          Text('Login', style: Theme.of(context).textTheme.headline4 ),
                           SizedBox( height: 30 ),
-                          _LoginForm()
 
                         ],
                       )
@@ -50,9 +48,8 @@ class _LoginForm extends StatelessWidget {
 
     return Container(
       child: Form(
-
+        //key: loginForm.formKey,
         key: formKey,
-
         autovalidateMode: AutovalidateMode.onUserInteraction,
 
         child: Column(
@@ -66,10 +63,8 @@ class _LoginForm extends StatelessWidget {
                   labelText: 'Correo electrónico',
                   prefixIcon: Icons.alternate_email_rounded
               ),
-
-              onChanged: (value) =>{
-                print (value)
-              },
+              //onChanged: ( value ) => loginForm.email = value,
+              onChanged: (value) =>{},
               validator: ( value ) {
 
                 String pattern = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
@@ -93,7 +88,7 @@ class _LoginForm extends StatelessWidget {
                   labelText: 'Contraseña',
                   prefixIcon: Icons.lock_outline
               ),
-
+             // onChanged: ( value ) => loginForm.password = value,
               onChanged: (value) => { print (value)},
               validator: ( value ) {
 
@@ -110,12 +105,12 @@ class _LoginForm extends StatelessWidget {
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                 disabledColor: Colors.grey,
                 elevation: 0,
-                color: Colors.greenAccent,
+                color: Colors.deepPurple,
                 child: Container(
                     padding: EdgeInsets.symmetric( horizontal: 80, vertical: 15),
                     child: Text(
                       "ENTRAR",
-                      style:TextStyleTexto.textoBtn(),
+                      style: TextStyle( color: Colors.white ),
                     )
                 ),
                 onPressed:
