@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:ejemplo_provider/providers/login_form_provider.dart';
 import 'package:ejemplo_provider/ui/input_decorations.dart';
+import 'package:ejemplo_provider/ui/textstyle_texto.dart';
 import 'package:ejemplo_provider/widget/login_background.dart';
 import 'package:ejemplo_provider/widget/card_container.dart';
+import 'package:provider/provider.dart';
 
+//El provider puede ponerse en diferente puntos, main, etc. Pero como sólo
+// va a usarse en LoginForm, lo colocamos en LoginScreen
 
 class LoginScreen extends StatelessWidget {
 
@@ -20,15 +24,25 @@ class LoginScreen extends StatelessWidget {
                       child: Column(
                         children: [
                           SizedBox( height: 10 ),
-                          Text('Login', style: Theme.of(context).textTheme.headline4 ),
+                          Text('Login', style: TextStyleTexto.textoTitPrincipal()),
                           SizedBox( height: 30 ),
+                          _LoginForm()
+                          //Se utiliza cuando sólo hay uno. Nos ayuda a administrar el estado
+                          /* proporciona una instancia de LoginFormProvider al árbol de widgets,
+                          permitiendo que los widgets descendientes escuchen y
+                           actualicen su interfaz de usuario en función de los cambios en el estado
+                            gestionado por LoginFormProvider*/
+                         /* ChangeNotifierProvider(
+                            create: ( _ ) => LoginFormProvider(),
+                            child: _LoginForm(),)
+                */
 
                         ],
                       )
                   ),
 
                   SizedBox( height: 50 ),
-                  Text('Crear una nueva cuenta', style: TextStyle( fontSize: 18, fontWeight: FontWeight.bold ),),
+                  Text('Crear una nueva cuenta', style: TextStyleTexto.textoApp(),),
                   SizedBox( height: 50 ),
                 ],
               ),
@@ -41,15 +55,17 @@ class LoginScreen extends StatelessWidget {
 
 class _LoginForm extends StatelessWidget {
 
+
+
   @override
   Widget build(BuildContext context) {
 
-    GlobalKey<FormState> formKey = new GlobalKey<FormState>();
+    //Creo una instancia del provider para el formulario, y trabajo a través de ella
+    final loginForm = Provider.of<LoginFormProvider>(context);
 
     return Container(
       child: Form(
-        //key: loginForm.formKey,
-        key: formKey,
+        key: loginForm.formkey,
         autovalidateMode: AutovalidateMode.onUserInteraction,
 
         child: Column(
@@ -63,8 +79,7 @@ class _LoginForm extends StatelessWidget {
                   labelText: 'Correo electrónico',
                   prefixIcon: Icons.alternate_email_rounded
               ),
-              //onChanged: ( value ) => loginForm.email = value,
-              onChanged: (value) =>{},
+              onChanged: ( value ) => loginForm.email = value,
               validator: ( value ) {
 
                 String pattern = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
@@ -79,25 +94,7 @@ class _LoginForm extends StatelessWidget {
 
             SizedBox( height: 30 ),
 
-            TextFormField(
-              autocorrect: false,
-              obscureText: true,
-              keyboardType: TextInputType.emailAddress,
-              decoration: InputDecorations.loginInputDecoration(
-                  hintText: '*****',
-                  labelText: 'Contraseña',
-                  prefixIcon: Icons.lock_outline
-              ),
-             // onChanged: ( value ) => loginForm.password = value,
-              onChanged: (value) => { print (value)},
-              validator: ( value ) {
 
-                return ( value != null && value.length >= 6 )
-                    ? null
-                    : 'La contraseña debe tener más de 5 caracteres';
-
-              },
-            ),
 
             SizedBox( height: 30 ),
 
@@ -105,7 +102,7 @@ class _LoginForm extends StatelessWidget {
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                 disabledColor: Colors.grey,
                 elevation: 0,
-                color: Colors.deepPurple,
+                color: Colors.greenAccent,
                 child: Container(
                     padding: EdgeInsets.symmetric( horizontal: 80, vertical: 15),
                     child: Text(
@@ -117,7 +114,8 @@ class _LoginForm extends StatelessWidget {
                     ()=>{
 
                   // TODO: validar si el login es correcto
-                  Navigator.pushReplacementNamed(context, 'home')
+                     if(loginForm.isValidForm())
+                      Navigator.pushReplacementNamed(context, 'home')
                 }
             )
 

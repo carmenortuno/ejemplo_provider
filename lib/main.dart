@@ -1,7 +1,24 @@
+import 'package:ejemplo_provider/providers/login_form_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:ejemplo_provider/screens/screens.dart';
+import 'package:provider/provider.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(gesApp());
+
+class gesApp extends StatelessWidget {
+  const gesApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: ( _ )=>LoginFormProvider())
+        ],
+      child: MyApp(),);
+  }
+}
+
 
 class MyApp extends StatelessWidget {
   @override

@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 class TextStyleTexto{
   static TextStyle textoApp(){
     return const TextStyle(
-      color: Color.fromRGBO(254,164,134, 1),
+      //color: Color.fromRGBO(254,164,134, 1),
+      color: Colors.black,
       fontFamily: 'dm',
-      fontSize: 22
+      fontWeight: FontWeight.bold,
+      fontSize: 18
     );
   }
   static TextStyle textoTitPrincipal(){
