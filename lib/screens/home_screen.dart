@@ -13,6 +13,7 @@ class HomeScreen extends StatelessWidget {
         child: Column(
             children: [
               Text(loginForm.email),
+
             ]
         ),
       ),
