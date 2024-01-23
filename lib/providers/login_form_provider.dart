@@ -16,7 +16,10 @@ class LoginFormProvider extends ChangeNotifier{
     notifyListeners();
   }
 
-
+ void updateEmail(String valor){
+    email=valor;
+    notifyListeners();
+  }
   bool isValidForm(){
 
     //Si el formulario es válido devuelve true, en caso contrario false

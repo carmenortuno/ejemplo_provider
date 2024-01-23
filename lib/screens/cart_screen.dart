@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 
-class CartProvider extends ChangeNotifier{
-  final List<String> _listaAlbum = [];
-  get listaAlbum => _listaAlbum;
-  void add(String album){
-    _listaAlbum.add(album);
-    notifyListeners();
-  }
+class CartScreen extends StatelessWidget {
+  const CartScreen({super.key});
 
-  void remove(String album){
-    _listaAlbum.remove(album);
-    notifyListeners();
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
   }
-
 }
+
+

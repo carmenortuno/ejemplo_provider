@@ -1,3 +1,4 @@
+import 'package:ejemplo_provider/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:ejemplo_provider/providers/login_form_provider.dart';
 import 'package:ejemplo_provider/ui/input_decorations.dart';
@@ -27,16 +28,6 @@ class LoginScreen extends StatelessWidget {
                           Text('Login', style: TextStyleTexto.textoTitPrincipal()),
                           SizedBox( height: 30 ),
                           _LoginForm()
-                          //Se utiliza cuando sólo hay uno. Nos ayuda a administrar el estado
-                          /* proporciona una instancia de LoginFormProvider al árbol de widgets,
-                          permitiendo que los widgets descendientes escuchen y
-                           actualicen su interfaz de usuario en función de los cambios en el estado
-                            gestionado por LoginFormProvider*/
-                         /* ChangeNotifierProvider(
-                            create: ( _ ) => LoginFormProvider(),
-                            child: _LoginForm(),)
-                */
-
                         ],
                       )
                   ),
@@ -94,7 +85,22 @@ class _LoginForm extends StatelessWidget {
 
             SizedBox( height: 30 ),
 
+            TextFormField(
+              autocorrect: false,
+              obscureText: true,
+              keyboardType: TextInputType.emailAddress,
+              decoration: InputDecorations.loginInputDecoration(
+                  hintText: '*****',
+                  labelText: 'Contraseña',
+                  prefixIcon: Icons.lock_outline
+              ),
+              onChanged: ( value ) => loginForm.password = value,
+              validator: ( value ) {
 
+                  return (value!=null && value.length>=5) ?null : "La contraseña debe tener al menos 5 caracteres";
+
+              },
+            ),
 
             SizedBox( height: 30 ),
 
@@ -110,13 +116,27 @@ class _LoginForm extends StatelessWidget {
                       style: TextStyle( color: Colors.white ),
                     )
                 ),
-                onPressed:
-                    ()=>{
+                onPressed:  () async{
+                  print("PULSAR");
+                  //Se pone la escucha a false, porque no se puede escuchar dentro de un método
+                  //sólo funciona la escucha en los View
+                   final authService = Provider.of<AuthService>(context,listen: false);
 
-                  // TODO: validar si el login es correcto
-                     if(loginForm.isValidForm())
-                      Navigator.pushReplacementNamed(context, 'home')
-                }
+                    //Si las validaciones no son correctas vuelve
+                    if(!loginForm.isValidForm()) return;
+                    //loginForm.isLoading = true;
+                    final String? error= await authService.login(loginForm.email, loginForm.password);
+                    print(error);
+                    if(error == null ){
+                      Navigator.pushReplacementNamed(context, 'home');
+                    }
+                    else{
+                      //TODO mostrar error en pantalla
+                    }
+
+
+                  }
+
             )
 
           ],

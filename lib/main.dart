@@ -1,4 +1,5 @@
 import 'package:ejemplo_provider/providers/login_form_provider.dart';
+import 'package:ejemplo_provider/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:ejemplo_provider/screens/screens.dart';
 import 'package:provider/provider.dart';
@@ -13,7 +14,8 @@ class gesApp extends StatelessWidget {
     return
       MultiProvider(
         providers: [
-          ChangeNotifierProvider(create: ( _ )=>LoginFormProvider())
+          ChangeNotifierProvider(create: ( _ )=>LoginFormProvider()),
+          ChangeNotifierProvider(create: ( _ )=>AuthService())
         ],
       child: MyApp(),);
   }
