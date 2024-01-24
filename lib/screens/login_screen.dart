@@ -125,7 +125,8 @@ class _LoginForm extends StatelessWidget {
                     //Si las validaciones no son correctas vuelve
                     if(!loginForm.isValidForm()) return;
                     //loginForm.isLoading = true;
-                    final String? error= await authService.login(loginForm.email, loginForm.password);
+
+                  final String? error= await authService.login(loginForm.email, loginForm.password);
                     print(error);
                     if(error == null ){
                       Navigator.pushReplacementNamed(context, 'home');
