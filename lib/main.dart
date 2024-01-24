@@ -1,3 +1,4 @@
+import 'package:ejemplo_provider/providers/cart_provider.dart';
 import 'package:ejemplo_provider/providers/login_form_provider.dart';
 import 'package:ejemplo_provider/services/auth_service.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,7 @@ class gesApp extends StatelessWidget {
       MultiProvider(
         providers: [
           ChangeNotifierProvider(create: ( _ )=>LoginFormProvider()),
+          ChangeNotifierProvider(create: ( _ )=>CartProvider()),
           ChangeNotifierProvider(create: ( _ )=>AuthService())
         ],
       child: MyApp(),);
