@@ -1,3 +1,4 @@
+import 'package:ejemplo_provider/widget/item_card.dart';
 import 'package:flutter/material.dart';
 
 class CartScreen extends StatelessWidget {
@@ -5,7 +6,19 @@ class CartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("PRODUCTOS"),
+      ),
+      body:ListView.builder(
+        itemCount: 10,
+        itemBuilder: (BuildContext context,int index)=> ItemCard(),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: (){},
+      ),
+    );
   }
 }
 

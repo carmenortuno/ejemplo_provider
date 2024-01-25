@@ -129,7 +129,7 @@ class _LoginForm extends StatelessWidget {
                   final String? error= await authService.login(loginForm.email, loginForm.password);
                     print(error);
                     if(error == null ){
-                      Navigator.pushReplacementNamed(context, 'home');
+                      Navigator.pushReplacementNamed(context, 'cart');
                     }
                     else{
                       //TODO mostrar error en pantalla

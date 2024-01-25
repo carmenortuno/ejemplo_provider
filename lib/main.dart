@@ -34,6 +34,7 @@ class MyApp extends StatelessWidget {
       routes: {
         'login': ( _ ) => LoginScreen(),
         'home' : ( _ ) => HomeScreen(),
+        'cart' : ( _ ) => CartScreen(),
       },
       theme: ThemeData.light().copyWith(
           scaffoldBackgroundColor: Color.fromRGBO(234, 249, 200, 1)
